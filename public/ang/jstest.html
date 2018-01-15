@@ -1,0 +1,81 @@
+<html>
+<head>
+    <style>
+        table, th , td  {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+<script src="angular.min.js"></script>
+<head>
+    <body>
+<div ng-app="myApp" ng-controller="namesCtrl">
+
+    <p><input type="text" ng-model="test"></p>
+    <table border="1" width="100%">
+        <tr>
+            <th>No</th>
+            <th ng-click="orderByMe('name')">Name</th>
+            <th ng-click="orderByMe('id')">id</th>
+        </tr>
+        <tr ng-repeat="x in names | orderBy:myOrderBy | filter:test">
+            <td>{{ $index + 1 }}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.id}}</td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('namesCtrl', function($scope, $http) {
+        $http.get("http://school.dev/api/view")
+                .then(function(response) {
+                    // alert(JSON.stringify(response));
+                    $scope.names = response.data;
+                    $scope.orderByMe = function(x) {
+                        $scope.myOrderBy = x;
+                    }
+                });
+    });
+</script>
+
+    
+	<!--<div ng-app="myApp" ng-controller="customersCtrl">
+
+<p>Type a letter in the input field:</p>
+
+<p><input type="text" ng-model="test"></p>
+
+<ul>
+  <li ng-repeat="x in names | filter:test">
+    {{ x.name }}
+  </li>
+</ul>
+
+</div>
+
+<script>
+        var app = angular.module('myApp', []);
+        app.controller('customersCtrl', function($scope, $http) {
+            $http.get("http://school.dev/api/view")
+                    .then(function(response) {
+                       // alert(JSON.stringify(response));
+                        $scope.names = response.data;
+                    });
+        });
+
+
+    </script>-->
+
+
+    </body>
+</html>

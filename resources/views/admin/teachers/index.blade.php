@@ -129,11 +129,15 @@
                                     <li><a class="btn-block w3-padding" href="{{ route('teachers.edit',[$teacher->id]) }}">Edit</a></li>
                                     <li><button onclick="document.getElementById({{$teacher->id*100}}).style.display='block'" class="btn-block w3-hover-blue w3-padding w3-white">Change Class</button></li>
                                     <li>
-                                        {{--@if(/*{{App\User::where('id', '=', $teacher->id)->value('teacher_id')}}*/)
-                                            Activated
+                                        @if(App\User::where('teacher_id', '=', $teacher->id)->value('id') > 0)
+                                            <form action="{{route('action.destroy',$teacher->id)}}"  method="POST">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                                <input class="btn-block w3-padding w3-red" type="submit" value="Deactivate">
+                                            </form>
                                             @else
                                             <button onclick="document.getElementById('{{$teacher->id}}').style.display='block'" class="btn-block w3-padding w3-green">Activate</button>
-                                        @endif--}}
+
                                     </li>
                                     <li>
                                         {!! Form::model($teacher, ['method' => 'PUT','onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');", 'route' => ['teachers.update', $teacher->id], 'files' => true,]) !!}
@@ -142,7 +146,7 @@
                                             {!! Form::submit(('Delete'), ['class' => 'btn-block w3-padding w3-red']) !!}
 
                                         {!! Form::close() !!}
-
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
@@ -179,7 +183,7 @@
                                     <h2>Activate {{$teacher->name}}</h2>
                                 </header>
                                 <div class="w3-container">
-                                    <form method="POST" action="{{route('authorize')}}">
+                                    <form method="POST" action="{{route('action.store')}}">
                                         {{ csrf_field() }}
                                         <input id="name" type="hidden" class="form-control" name="role_id" value="2">
                                         <input id="name" type="hidden" class="form-control" name="teacher_id" value="{{ $teacher->id }}">

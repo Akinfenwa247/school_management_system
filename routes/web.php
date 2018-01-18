@@ -34,6 +34,7 @@ Route::group(['prefix'=>'admin/dashboard', 'middleware'=>['auth','admin']], func
     Route::post('teachers/{teacher}','Admin\TeachersController@delete')->name('teachers.delete');
     Route::resource('events', 'Admin\EventController');
     Route::get('view', 'Admin\EventController@view')->name('events.view');
+    Route::resource('action', 'AuthorizeController');
 });
 
 

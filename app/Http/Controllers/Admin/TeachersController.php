@@ -75,6 +75,7 @@ class TeachersController extends Controller
 
         $teacher = Teacher::findOrFail($id);
 
+
         return view('admin.teachers.edit', compact('teacher'));
     }
 
@@ -106,8 +107,8 @@ class TeachersController extends Controller
     {
 
         $teacher = Teacher::findOrFail($id);
-
-        return view('admin.teachers.show', compact('teacher'));
+        $authorize= User::where('teacher_id', '=', $id)->value('id');
+        return view('admin.teachers.show', compact('teacher','authorize'));
     }
 
 

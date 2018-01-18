@@ -89,6 +89,6 @@ class AuthorizeController extends Controller
     {
         $user = User::where('teacher_id', '=', $id);
         $user->forceDelete();
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Deactivated Successfully!');
     }
 }

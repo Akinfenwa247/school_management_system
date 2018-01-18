@@ -102,7 +102,11 @@
                 <header class="panel-heading">
                     <h3><strong>Teachers</strong> </h3>
                 </header>
-
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <table class="table table-striped table-bordered w3-centered table-advance table-hover" id="dataTables-example">
                     <tbody>
 

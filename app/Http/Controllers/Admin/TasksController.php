@@ -63,7 +63,7 @@ class TasksController extends Controller
 
         $task = Task::findOrFail($id);
         $task->update($request->all());
-        return redirect()->route('tasks.index')->with('status', 'Successfully updated!');;
+        return redirect()->route('tasks.index')->with('status', 'Successfully updated!');
     }
 
 
